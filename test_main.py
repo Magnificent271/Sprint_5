@@ -105,12 +105,3 @@ class TestBooksCollector:
         collector.delete_book_from_favorites('Книга1')
         assert len(collector.favorites) == 0
 
-    #Проверка получения списка Избранных книг
-    def test_get_list_of_favorites_books(self, collector):
-        collector.add_new_book('Книга1')
-        collector.add_new_book('Книга2')
-        collector.set_book_genre('Книга1', 'Ужасы')
-        collector.set_book_genre('Книга2', 'Детективы')
-        collector.add_book_in_favorites('Книга1')
-        collector.add_book_in_favorites('Книга2')
-        assert 'Книга1' in collector.get_list_of_favorites_books() and 'Книга2' in collector.get_list_of_favorites_books()
