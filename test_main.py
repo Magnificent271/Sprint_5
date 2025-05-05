@@ -12,8 +12,7 @@ class TestBooksCollector:
         ])
 
     #Проверка добавления новой книги в словарь books_genre
-    def test_add_new_book(self, book_title):
-        collector = BooksCollector()
+    def test_add_new_book(self, collector, book_title):
         collector.add_new_book(book_title)
         assert book_title in collector.books_genre
 
@@ -24,8 +23,7 @@ class TestBooksCollector:
         ''
     ])
 
-    def test_add_new_book_invalid_length(self, invalid_book_title):
-        collector = BooksCollector()
+    def test_add_new_book_invalid_length(self, collector, invalid_book_title):
         collector.add_new_book(invalid_book_title)
         assert invalid_book_title not in collector.get_books_genre()
 
@@ -37,23 +35,20 @@ class TestBooksCollector:
         ('Homo Deus', 'Фонтан', False),
     ])
 
-    def test_set_book_genre_add_genre(self, book_title, genre, expected):
-        collector = BooksCollector()
+    def test_set_book_genre_add_genre(self, collector, book_title, genre, expected):
         collector.add_new_book(book_title)
         collector.set_book_genre(book_title, genre)
         assert (genre in collector.get_book_genre(book_title)) == expected
 
     #Негативный кейс. Установка жанра не существующей книге
-    def test_set_book_genre_not_book_in_list(self):
-        collector = BooksCollector()
+    def test_set_book_genre_not_book_in_list(self, collector):
         book_title = 'Homo Deus'
         genre = 'Фантастика'
         collector.set_book_genre(book_title, genre)
         assert genre not in collector.get_books_genre()
 
     #Проверка корректного возвращения жанра для указанной книги
-    def test_get_book_genre(self):
-        collector = BooksCollector()
+    def test_get_book_genre(self, collector):
         book_title = 'Homo Deus'
         genre = 'Фантастика'
         collector.add_new_book(book_title)
@@ -61,8 +56,7 @@ class TestBooksCollector:
         assert collector.get_book_genre(book_title) == genre
 
     #Проверка получения списка книг с определенным жанром
-    def test_get_books_with_specific_genre(self):
-        collector = BooksCollector()
+    def test_get_books_with_specific_genre(self, collector):
         book_title_1 = 'Книга1'
         book_title_2 = 'Книга2'
         book_title_3 = 'Книга3'
@@ -78,8 +72,7 @@ class TestBooksCollector:
         assert collector.get_books_with_specific_genre(genre_1) == [book_title_1, book_title_2]
 
     #Проверка возвращения списка книг доступным детям
-    def test_get_books_for_children(self):
-        collector = BooksCollector()
+    def test_get_books_for_children(self, collector):
         collector.add_new_book('Книга1')
         collector.set_book_genre('Книга1', 'Ужасы')  # Не для детей
         collector.add_new_book('Книга2')
@@ -93,16 +86,14 @@ class TestBooksCollector:
         assert books_for_children == expected_books
 
     #Проверка добавления книги в Избранное
-    def test_add_book_in_favorites(self):
-        collector = BooksCollector()
+    def test_add_book_in_favorites(self, collector):
         collector.add_new_book('Книга1')
         collector.set_book_genre('Книга1', 'Ужасы')
         collector.add_book_in_favorites('Книга1')
         assert 'Книга1' in collector.favorites
 
     #Проверка добавления одной и той же книги в Избранное
-    def test_add_book_in_favorites_twice(self):
-        collector = BooksCollector()
+    def test_add_book_in_favorites_twice(self, collector):
         collector.add_new_book('Книга1')
         collector.set_book_genre('Книга1', 'Ужасы')
         collector.add_book_in_favorites('Книга1')
@@ -110,8 +101,7 @@ class TestBooksCollector:
         assert len(collector.favorites) == 1
 
     #Проверка удаления книги из Избранного
-    def test_delete_book_from_favorites(self):
-        collector = BooksCollector()
+    def test_delete_book_from_favorites(self, collector):
         collector.add_new_book('Книга1')
         collector.set_book_genre('Книга1', 'Ужасы')
         collector.add_book_in_favorites('Книга1')
@@ -119,8 +109,7 @@ class TestBooksCollector:
         assert len(collector.favorites) == 0
 
     #Проверка получения списка Избранных книг
-    def test_get_list_of_favorites_books(self):
-        collector = BooksCollector()
+    def test_get_list_of_favorites_books(self, collector):
         collector.add_new_book('Книга1')
         collector.add_new_book('Книга2')
         collector.set_book_genre('Книга1', 'Ужасы')
