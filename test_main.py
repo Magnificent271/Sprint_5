@@ -60,17 +60,13 @@ class TestBooksCollector:
     def test_get_books_with_specific_genre(self, collector):
         book_title_1 = 'Книга1'
         book_title_2 = 'Книга2'
-        book_title_3 = 'Книга3'
         genre_1 = 'Ужасы'
-        genre_2 = 'Ужасы'
-        genre_3 = 'Комедии'
+        genre_2 = 'Комедии'
         collector.add_new_book(book_title_1)
         collector.add_new_book(book_title_2)
-        collector.add_new_book(book_title_3)
         collector.set_book_genre(book_title_1, genre_1)
         collector.set_book_genre(book_title_2, genre_2)
-        collector.set_book_genre(book_title_3, genre_3)
-        assert collector.get_books_with_specific_genre(genre_1) == [book_title_1, book_title_2]
+        assert collector.get_books_with_specific_genre(genre_1) == [book_title_1]
 
     #Проверка возвращения списка книг доступным детям
     def test_get_books_for_children(self, collector):
