@@ -26,16 +26,20 @@ class TestBooksCollector:
 
     #Проверка установки жанра книги
     #Позитивный кейс. Жанр есть в списке
-    #Негативный кейс. Жанра нет в списке
-    @pytest.mark.parametrize('book_title, genre, expected', [
-        ('Homo Deus', 'Фантастика', True),
-        ('Homo Deus', 'Фонтан', False),
-    ])
-
-    def test_set_book_genre_add_genre(self, collector, book_title, genre, expected):
+    def test_set_book_genre_add_genre(self, collector):
+        book_title = 'Homo Deus'
+        genre = 'Фантастика'
         collector.add_new_book(book_title)
         collector.set_book_genre(book_title, genre)
-        assert (genre in collector.get_book_genre(book_title)) == expected
+        assert genre in collector.get_book_genre(book_title)
+
+    # Негативный кейс. Жанра нет в списке
+    def test_set_book_genre_not_add_genre(self, collector):
+        book_title = 'Homo Deus'
+        genre = 'Фонтан'
+        collector.add_new_book(book_title)
+        collector.set_book_genre(book_title, genre)
+        assert genre not in collector.get_book_genre(book_title)
 
     #Негативный кейс. Установка жанра не существующей книге
     def test_set_book_genre_not_book_in_list(self, collector):
