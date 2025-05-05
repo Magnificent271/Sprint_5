@@ -7,12 +7,9 @@ import pytest
 # обязательно указывать префикс Test
 class TestBooksCollector:
 
-    @pytest.mark.parametrize('book_title', [
-        'The Lord of the Rings',
-        ])
-
     #Проверка добавления новой книги в словарь books_genre
-    def test_add_new_book(self, collector, book_title):
+    def test_add_new_book(self, collector):
+        book_title = 'The Lord of the Rings'
         collector.add_new_book(book_title)
         assert book_title in collector.books_genre
 
